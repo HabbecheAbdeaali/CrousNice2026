@@ -643,7 +643,17 @@ def run_monitor_cycle(state, session, now):
     """Perform one full monitoring cycle. Raises on failure."""
     tool_id = resolve_tool_id(session)
     listings = fetch_all_listings(session, tool_id)
-
+        # Keep only addresses in Nice, excluding nearby towns.
+    listings = {
+        acc_id: listing
+        for acc_id, listing in listings.items()
+        if re.search(
+            r"\b(?:06000|06100|06200|06300)\s*[-,]?\s*NICE\b",
+            listing["address"],
+            re.IGNORECASE,
+        )
+    }
+    log.info("Nice filter: %d listing(s).", len(listings))
     if not state["initialized"]:
         # First run: record everything silently, send ONE confirmation.
         available_count = sum(
@@ -654,7 +664,7 @@ def run_monitor_cycle(state, session, now):
         state["last_heartbeat"] = now.isoformat()
         send_telegram(
             "\u2705 <b>Bot CROUS activ\u00e9</b>\n\n"
-            "Surveillance de l'\u00cele-de-France d\u00e9marr\u00e9e.\n"
+            "Surveillance de Nice uniquement démarrée.\n"
             "\U0001f4e6 %d logement(s) disponible(s) actuellement "
             "(%d suivi(s) au total).\n\n"
             "Vous recevrez une alerte d\u00e8s qu'un nouveau logement appara\u00eet "
