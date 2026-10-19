@@ -75,10 +75,10 @@ FALLBACK_TOOL_ID = int(os.getenv("CROUS_FALLBACK_TOOL_ID", "47"))
 
 # --- Geographic bounding box (Ile-de-France, includes Paris) -----------------
 # Two opposite corners of the search rectangle.
-BBOX_WEST = float(os.getenv("CROUS_BBOX_WEST", "1.4462445"))     # min longitude
-BBOX_SOUTH = float(os.getenv("CROUS_BBOX_SOUTH", "48.1201456"))  # min latitude
-BBOX_EAST = float(os.getenv("CROUS_BBOX_EAST", "3.5592208"))     # max longitude
-BBOX_NORTH = float(os.getenv("CROUS_BBOX_NORTH", "49.241431"))   # max latitude
+BBOX_WEST = 7.10
+BBOX_SOUTH = 43.60
+BBOX_EAST = 7.40
+BBOX_NORTH = 43.85
 
 # --- Search paging -----------------------------------------------------------
 PAGE_SIZE = int(os.getenv("CROUS_PAGE_SIZE", "50"))
